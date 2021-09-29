@@ -1,1 +1,23 @@
+<h1>Post New Page</h1>
+
 <%= render 'form', post: Post.new %>
+
+<%= form_for @post do |form| %>
+  <%= form.label :title %>
+  <%= form.text_field :title %>
+  <%= form.label :content %>
+  <%= form.text_field :content %>
+
+  <h4>Select a Category:</h4>
+  <%= form.collection_check_boxes :category_ids, Category.all, :id, :name %>
+
+  <h4>or Create a Category:</h4>
+  <%= form.fields_for :categories, @post.categories.build do |c| %>
+  <%= c.label :name %>
+  <%= c.text_field :name %>
+
+  <% end %>
+
+  <%= form.submit %>
+
+<% end %>
